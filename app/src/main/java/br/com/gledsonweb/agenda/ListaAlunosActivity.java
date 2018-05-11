@@ -1,6 +1,12 @@
 package br.com.gledsonweb.agenda;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Browser;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -15,8 +21,10 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.gledsonweb.agenda.adapter.AlunosAdapter;
 import br.com.gledsonweb.agenda.dao.AlunoDAO;
 import br.com.gledsonweb.agenda.modelo.Aluno;
+import br.com.gledsonweb.agenda.tasks.EnviaAlunosTask;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
@@ -52,19 +60,88 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_lista_alunos, menu);
+
+        return true;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         carregaLista();
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_enviar_notas:
+                new EnviaAlunosTask(this).execute();
+                break;
+
+            case R.id.menu_baixar_provas:
+                Intent vaiParaProvas = new Intent(this, ProvasActivity.class);
+                startActivity(vaiParaProvas);
+                break;
+
+            case R.id.menu_mapa:
+                Intent vaiParaMapa = new Intent(this, MapaActivity.class);
+                startActivity(vaiParaMapa);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
+
+        MenuItem itemLigar = menu.add("Ligar");
+        itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(ActivityCompat.checkSelfPermission(ListaAlunosActivity.this, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED){
+
+                    ActivityCompat.requestPermissions(ListaAlunosActivity.this,
+                            new String[]{Manifest.permission.CALL_PHONE}, 123);
+
+                }else {
+                    Intent intentTelefone = new Intent(Intent.ACTION_CALL);
+                    intentTelefone.setData(Uri.parse("tel:" + aluno.getTelefone()));
+                    startActivity(intentTelefone);
+                }
+                return false;
+            }
+        });
+
+        MenuItem itemSMS = menu.add("Enviar SMS");
+        Intent intentSMS = new Intent(Intent.ACTION_VIEW);
+        intentSMS.setData(Uri.parse("sms:" + aluno.getTelefone()));
+        itemSMS.setIntent(intentSMS);
+
+        MenuItem itemMapa = menu.add("Visualizar Mapa");
+        Intent intentMapa = new Intent(Intent.ACTION_VIEW);
+        intentMapa.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
+        itemMapa.setIntent(intentMapa);
+
+        MenuItem itemSite = menu.add("Visitar site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+
+        String site = aluno.getSite();
+        if (!site.startsWith("http://") && !site.startsWith("https://")){
+            site = "http://" + site;
+        }
+        intentSite.setData(Uri.parse(site));
+        itemSite.setIntent(intentSite);
+
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
+
                 AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.deleta(aluno);
                 dao.close();
@@ -81,8 +158,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
+        AlunosAdapter adapter = new AlunosAdapter(this, alunos);
         listaAlunos.setAdapter(adapter);
     }
-
 }
