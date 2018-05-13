@@ -1,95 +1,75 @@
- package br.com.gledsonweb.agenda;
+package br.com.gledsonweb.agenda;
 
 import android.Manifest;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.Browser;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.ContextMenu;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.gledsonweb.agenda.adapter.AlunosAdapter;
 import br.com.gledsonweb.agenda.dao.AlunoDAO;
 import br.com.gledsonweb.agenda.modelo.Aluno;
-import br.com.gledsonweb.agenda.tasks.EnviaAlunosTask;
 
-public class ListaAlunosActivity extends AppCompatActivity {
-
+public class ListaAlunosFragment extends Fragment {
     private ListView listaAlunos;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_alunos);
+    public static ListaAlunosFragment newInstance() {
 
-        listaAlunos = (ListView) findViewById(R.id.lvListaAluno);
+        return new ListaAlunosFragment();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_lista_alunos, container, false);
+
+        listaAlunos = (ListView) view.findViewById(R.id.lvListaAluno);
 
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(position);
-                Intent intentVaiProFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                Intent intentVaiProFormulario = new Intent(getContext(), FormularioActivity.class);
                 intentVaiProFormulario.putExtra("aluno", aluno);
                 startActivity(intentVaiProFormulario);
             }
         });
-
-        Button novoAluno = (Button) findViewById(R.id.btnNovoAluno);
+//
+        Button novoAluno = (Button) view.findViewById(R.id.btnNovoAluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentVaiProFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                Intent intentVaiProFormulario = new Intent(getContext(), FormularioActivity.class);
                 startActivity(intentVaiProFormulario);
             }
         });
-
+//
         registerForContextMenu(listaAlunos);
+        carregaLista();
+        return view;
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_lista_alunos, menu);
-
-        return true;
-    }
-
-    @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         carregaLista();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_enviar_notas:
-                new EnviaAlunosTask(this).execute();
-                break;
-
-            case R.id.menu_baixar_provas:
-                Intent vaiParaProvas = new Intent(this, ProvasActivity.class);
-                startActivity(vaiParaProvas);
-                break;
-
-            case R.id.menu_mapa:
-                Intent vaiParaMapa = new Intent(this, MapaActivity.class);
-                startActivity(vaiParaMapa);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -102,11 +82,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
         itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(ActivityCompat.checkSelfPermission(ListaAlunosActivity.this, Manifest.permission.CALL_PHONE)
+                if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
                         != PackageManager.PERMISSION_GRANTED){
 
-                    ActivityCompat.requestPermissions(ListaAlunosActivity.this,
-                            new String[]{Manifest.permission.CALL_PHONE}, 123);
+//                    ActivityCompat.requestPermissions(getContext(),
+//                            new String[]{Manifest.permission.CALL_PHONE}, 123);
 
                 }else {
                     Intent intentTelefone = new Intent(Intent.ACTION_CALL);
@@ -142,7 +122,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
+                AlunoDAO dao = new AlunoDAO(getContext());
                 dao.deleta(aluno);
                 dao.close();
 
@@ -152,13 +132,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
     }
 
-
     private void carregaLista() {
-        AlunoDAO dao = new AlunoDAO(this);
+        AlunoDAO dao = new AlunoDAO(getContext());
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
 
-        AlunosAdapter adapter = new AlunosAdapter(this, alunos);
+        AlunosAdapter adapter = new AlunosAdapter(getContext(), alunos);
         listaAlunos.setAdapter(adapter);
     }
 }

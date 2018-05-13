@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".ListaActivity">
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ListaAlunosActivity">
     <item
         android:id="@+id/menu_enviar_notas"
         android:title="Enviar notas"
@@ -18,4 +18,4 @@
         app:showAsAction="always"/>
 
 
-    </menu>
+</menu>

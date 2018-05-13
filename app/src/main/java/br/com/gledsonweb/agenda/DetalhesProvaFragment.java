@@ -1,6 +1,5 @@
 package br.com.gledsonweb.agenda;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import br.com.gledsonweb.agenda.modelo.Prova;
-
 
 public class DetalhesProvaFragment extends Fragment {
 

@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -12,7 +12,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -20,16 +20,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaAlunosActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".ListaAlunosActivity"
+            android:label="Lista de Alunos">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".FormularioActivity"
-            android:label="Formulário" />
+            android:label="Cadastro Aluno" />
 
         <receiver android:name=".receiver.SMSReceiver">
             <intent-filter>
@@ -41,12 +38,19 @@
         <activity android:name=".DetalhesProvaActivity" />
         <activity android:name=".ProvasTabletActivity" />
 
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MapaActivity"></activity>
+        <activity android:name=".MapaActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/WindowActionBarNoTitle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
