@@ -5,13 +5,15 @@
     android:id="@+id/fragment_lista_alunos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/WindowActionBarNoTitle"
     android:orientation="vertical">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="55dp"
-        android:id="@+id/lvListaAluno"/>
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:id="@+id/rvListaAluno"/>
 
     <Button
         android:id="@+id/btnNovoAluno"
@@ -36,5 +38,5 @@
     app:itemBackground="@color/colorPrimary"
     app:itemIconTint="@drawable/bottom_item_background_color"
     app:itemTextColor="@drawable/bottom_item_background_color"
-    app:menu="@menu/menu_lista_alunos" />
+    app:menu="@menu/menu_navigation" />
 </RelativeLayout>

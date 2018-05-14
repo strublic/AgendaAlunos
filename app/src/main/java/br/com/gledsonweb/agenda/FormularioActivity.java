@@ -2,9 +2,6 @@ package br.com.gledsonweb.agenda;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -14,20 +11,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.File;
 
 import br.com.gledsonweb.agenda.dao.AlunoDAO;
 import br.com.gledsonweb.agenda.modelo.Aluno;
 
+import static br.com.gledsonweb.agenda.constante.AlunoConstantes.CHAVE_ALUNO;
+import static br.com.gledsonweb.agenda.constante.AlunoConstantes.CHAVE_POSICAO;
+import static br.com.gledsonweb.agenda.constante.AlunoConstantes.CODIGO_CAMERA;
+import static br.com.gledsonweb.agenda.constante.AlunoConstantes.CODIGO_REQ_ALTERA_ALUNO;
+
 public class FormularioActivity extends AppCompatActivity {
 
-    public static final int CODIGO_CAMERA = 567;
     private FormularioHelper helper;
     private String caminhoFoto;
+    private int posicaoRecebida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +35,16 @@ public class FormularioActivity extends AppCompatActivity {
 
         helper = new FormularioHelper(this);
 
-        Intent intent = getIntent();
-        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
-
-        if (aluno != null) {
-            helper.preencheFormulario(aluno);
+        Intent dadosRecebidos = getIntent();
+        if(dadosRecebidos.hasExtra(CHAVE_ALUNO)) {
+            Aluno alunoRecebido = (Aluno) dadosRecebidos.getSerializableExtra(CHAVE_ALUNO);
+            posicaoRecebida = dadosRecebidos.getIntExtra(CHAVE_POSICAO, -1);
+            if (alunoRecebido != null) {
+                helper.preencheFormulario(alunoRecebido);
+            }
         }
 
-        Button botaoFoto = (Button) findViewById(R.id.btFoto);
+        Button botaoFoto = findViewById(R.id.btFoto);
         botaoFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,10 +90,17 @@ public class FormularioActivity extends AppCompatActivity {
                 dao.close();
 
                 Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
-
+                retornaAluno(aluno);
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void retornaAluno(Aluno aluno) {
+        Intent resultadoInsercao = new Intent();
+        resultadoInsercao.putExtra(CHAVE_ALUNO, aluno);
+        resultadoInsercao.putExtra(CHAVE_POSICAO, posicaoRecebida);
+        setResult(CODIGO_REQ_ALTERA_ALUNO, resultadoInsercao);
     }
 }

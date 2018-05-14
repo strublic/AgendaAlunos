@@ -21,12 +21,12 @@ public class FormularioHelper {
 
 
     public FormularioHelper(FormularioActivity activity){
-        nome = (EditText) activity.findViewById(R.id.etNome);
-        endereco = (EditText) activity.findViewById(R.id.etEndereco);
-        telefone = (EditText) activity.findViewById(R.id.etTelefone);
-        site = (EditText) activity.findViewById(R.id.etSite);
-        nota = (RatingBar) activity.findViewById(R.id.rbNota);
-        foto = (ImageView) activity.findViewById(R.id.ivFoto);
+        nome = activity.findViewById(R.id.etNome);
+        endereco = activity.findViewById(R.id.etEndereco);
+        telefone = activity.findViewById(R.id.etTelefone);
+        site = activity.findViewById(R.id.etSite);
+        nota = activity.findViewById(R.id.rbNota);
+        foto = activity.findViewById(R.id.ivFoto);
         aluno = new Aluno();
     }
 
