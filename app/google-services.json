@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "962816382652",
+    "firebase_url": "https://agendaandroid-61a87.firebaseio.com",
+    "project_id": "agendaandroid-61a87",
+    "storage_bucket": "agendaandroid-61a87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962816382652:android:202dc1a660e83c47",
+        "android_client_info": {
+          "package_name": "br.com.gledsonweb.agenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962816382652-b5a4umlp511n65km3vqjop6mtsfk78av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXwpnNnrDhHqv7auFhyvQAYh4Zl03XAZQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

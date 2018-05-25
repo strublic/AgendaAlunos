@@ -23,4 +23,8 @@
         <item name="android:textColor">#ff0000</item>
     </style>
 
+    <style name="AppCompat.TelaCheia" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
