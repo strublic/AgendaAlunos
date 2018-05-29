@@ -15,6 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "962816382652-q3qalo143ksjh66thsbpv86gsb7t44er.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.gledsonweb.agenda",
+            "certificate_hash": "92bbb15850548764ef46b0cad2caae4730dd598e"
+          }
+        },
+        {
+          "client_id": "962816382652-b5a4umlp511n65km3vqjop6mtsfk78av.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "962816382652-b5a4umlp511n65km3vqjop6mtsfk78av.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962816382652-b5a4umlp511n65km3vqjop6mtsfk78av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

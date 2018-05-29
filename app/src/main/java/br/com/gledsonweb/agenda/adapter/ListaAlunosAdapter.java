@@ -1,6 +1,7 @@
 package br.com.gledsonweb.agenda.adapter;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -162,6 +164,39 @@ public class ListaAlunosAdapter extends RecyclerView.Adapter<ListaAlunosAdapter.
                         context.startActivity(intentTelefone);
                     }
                     return false;
+                }
+            });
+
+
+            MenuItem itemWhats = menu.add("Whatsapp");
+            itemWhats.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Intent sendIntent = new Intent("android.intent.action.MAIN");
+                    sendIntent.setComponent(new ComponentName("com.whatsapp","com.whatsapp.Conversation"));
+                    sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(aluno.getTelefone())+"@s.whatsapp.net");
+                    context.startActivity(sendIntent);
+
+
+
+//                    String whatsAppMessage = "Olá meu jogo preferido é ${jogo.titulo}";
+//                    Intent sendIntent = new Intent();
+//                    sendIntent.action = Intent.ACTION_SEND;
+//                    sendIntent.putExtra(Intent.EXTRA_TEXT, whatsAppMessage);
+//                    sendIntent.type = "text/plain";
+//
+//                    // Do not forget to add this to open whatsApp App specifically
+//                    sendIntent.`package` = "com.whatsapp";
+//                    startActivity(sendIntent);
+
+//                    String text = "Olá meu jogo preferido é " + aluno.getNome();// Replace with your message.
+//                    String toNumber = aluno.getTelefone();
+//                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.putExtra("jid", Uri.parse("http://api.whatsapp.com/send?phone=$toNumber&text=$text"));
+//                    context.startActivity(intent);
+
+                    return true;
+
                 }
             });
 
