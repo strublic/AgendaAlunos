@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -24,13 +25,13 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import br.com.gledsonweb.agenda.ListaAlunosActivity;
 import br.com.gledsonweb.agenda.R;
 import br.com.gledsonweb.agenda.adapter.listener.OnItemClickListener;
 import br.com.gledsonweb.agenda.dao.AlunoDAO;
 import br.com.gledsonweb.agenda.modelo.Aluno;
 
 public class ListaAlunosAdapter extends RecyclerView.Adapter<ListaAlunosAdapter.AlunoViewHolder> {
-
 
     private List<Aluno> alunos;
     private Context context;
@@ -145,24 +146,24 @@ public class ListaAlunosAdapter extends RecyclerView.Adapter<ListaAlunosAdapter.
 //            final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
 
 
-//            MenuItem itemLigar = menu.add("Ligar");
-//            itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    if(ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE)
-//                            != PackageManager.PERMISSION_GRANTED){
-//
-////                    ActivityCompat.requestPermissions(getContext(),
-////                            new String[]{Manifest.permission.CALL_PHONE}, 123);
-//
-//                    }else {
-//                        Intent intentTelefone = new Intent(Intent.ACTION_CALL);
-//                        intentTelefone.setData(Uri.parse("tel:" + aluno.getTelefone()));
-////                        startActivity(intentTelefone);
-//                    }
-//                    return false;
-//                }
-//            });
+            MenuItem itemLigar = menu.add("Ligar");
+            itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE)
+                            != PackageManager.PERMISSION_GRANTED){
+
+                    ActivityCompat.requestPermissions((ListaAlunosActivity)context,
+                            new String[]{Manifest.permission.CALL_PHONE}, 123);
+
+                    }else {
+                        Intent intentTelefone = new Intent(Intent.ACTION_CALL);
+                        intentTelefone.setData(Uri.parse("tel:" + aluno.getTelefone()));
+                        context.startActivity(intentTelefone);
+                    }
+                    return false;
+                }
+            });
 
             MenuItem itemSMS = menu.add("Enviar SMS");
             Intent intentSMS = new Intent(Intent.ACTION_VIEW);

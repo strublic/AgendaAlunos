@@ -34,21 +34,27 @@ public class MapaFragment extends SupportMapFragment implements OnMapReadyCallba
         if(posicaoDaEscola != null) {
             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(posicaoDaEscola, 17);
             googleMap.moveCamera(update);
-        }
-
-        AlunoDAO alunoDAO = new AlunoDAO(getContext());
-        for(Aluno aluno : alunoDAO.buscaAlunos()){
-            LatLng coordenada = getAddress(aluno.getEndereco());
-            if(coordenada != null){
+            if(posicaoDaEscola != null){
                 MarkerOptions marcador = new MarkerOptions();
-                marcador.position(coordenada);
-                marcador.title(aluno.getNome());
-                marcador.snippet(String.valueOf(aluno.getNota()));
+                marcador.position(posicaoDaEscola);
+                marcador.title("Agenda APP");
                 googleMap.addMarker(marcador);
             }
         }
 
-        alunoDAO.close();
+//        AlunoDAO alunoDAO = new AlunoDAO(getContext());
+//        for(Aluno aluno : alunoDAO.buscaAlunos()){
+//            LatLng coordenada = getAddress(aluno.getEndereco());
+//            if(coordenada != null){
+//                MarkerOptions marcador = new MarkerOptions();
+//                marcador.position(coordenada);
+//                marcador.title(aluno.getNome());
+//                marcador.snippet(String.valueOf(aluno.getNota()));
+//                googleMap.addMarker(marcador);
+//            }
+//        }
+
+//        alunoDAO.close();
         new Localizador(getContext(), googleMap);
     }
 

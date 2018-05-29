@@ -33,5 +33,16 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Esqueceu a senha?</string>
     <string name="forgot_password_msg">Você só precisa informar o seu e-mail e breve chegará sua senha.</string>
+    <string name="dev_by">Desenvolvido por Gledson C Strublic</string>
+    <string name="title_app">Agenda de Alunos</string>
+    <string name="version_app">versão 1.0.0</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="sobre">Sobre</string>
+    <string name="mapa">Mapa</string>
+    <string name="baixar_provas">Baixar provas</string>
+    <string name="enviar_notas">Enviar notas</string>
+    <string name="visualizar_no_mapa">Visualizar no mapa</string>
+
 
 </resources>

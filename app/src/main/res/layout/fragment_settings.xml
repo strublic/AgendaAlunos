@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_maps"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:theme="@style/WindowActionBarNoTitle"
+    tools:context=".SettingsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,8 +17,7 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <ImageView
             android:layout_width="@dimen/logo_w_h"
@@ -26,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:text="Agenda de Alunos"
+            android:text="@string/title_app"
             android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -36,7 +41,7 @@
             android:id="@+id/devby"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Desenvolvido por Gledson C Strublic"
+            android:text="@string/dev_by"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -44,9 +49,9 @@
             android:id="@+id/version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="versão 1.0.0"
+            android:text="@string/version_app"
             android:maxLines="1"
             android:singleLine="true" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

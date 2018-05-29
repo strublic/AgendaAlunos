@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupBottomNavigation() {
 
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_settings:
                         loadSettingsFragment();
+                        return true;
+                    case R.id.action_maps:
+                        loadMapsFragment();
                         return true;
                 }
                 return false;
@@ -79,5 +82,14 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = manager.beginTransaction();
         ft.replace(R.id.fragment_frame, fragment);
         ft.commit();
+    }
+
+
+    private void loadMapsFragment() {
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction tx = manager.beginTransaction();
+        tx.replace(R.id.fragment_frame, new MapaFragment());
+        tx.commit();
     }
 }
