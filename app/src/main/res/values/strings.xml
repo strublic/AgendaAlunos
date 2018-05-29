@@ -43,6 +43,7 @@
     <string name="baixar_provas">Baixar provas</string>
     <string name="enviar_notas">Enviar notas</string>
     <string name="visualizar_no_mapa">Visualizar no mapa</string>
+    <string name="password">Password</string>
 
 
 </resources>
