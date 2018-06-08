@@ -22,9 +22,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ListaAlunosActivity"
+            android:screenOrientation="portrait"
             android:label="Lista de Alunos" />
         <activity
             android:name=".FormularioActivity"
+            android:screenOrientation="portrait"
             android:label="Cadastro Aluno" />
 
         <receiver android:name=".receiver.SMSReceiver">
@@ -39,17 +41,23 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyA0H4uzx56hE07RE7scKbf33o1trjrcALE" />
 
-        <activity android:name=".MapaActivity" />
+        <activity android:name=".MapaActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/WindowActionBarNoTitle" />
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SignupActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppCompat.TelaCheia">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

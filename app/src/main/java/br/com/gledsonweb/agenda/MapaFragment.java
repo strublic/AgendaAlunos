@@ -1,8 +1,11 @@
 package br.com.gledsonweb.agenda;
 
+import android.*;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +23,7 @@ import br.com.gledsonweb.agenda.modelo.Aluno;
 
 public class MapaFragment extends SupportMapFragment implements OnMapReadyCallback {
 
+    private GoogleMap mMap;
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -29,19 +33,49 @@ public class MapaFragment extends SupportMapFragment implements OnMapReadyCallba
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        if(ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
 
-        LatLng posicaoDaEscola = getAddress("Avenida Paulista, 1234, SAo Paulo");
-        if(posicaoDaEscola != null) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                ActivityCompat.requestPermissions(this.getActivity(),
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        111);
+
+            }
+//            else{
+//                LatLng posicaoDaEscola = getAddress("Avenida Paulista, 1234, SAo Paulo");
+//                if(posicaoDaEscola != null) {
+//                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(posicaoDaEscola, 17);
+//                    googleMap.moveCamera(update);
+//                    if (posicaoDaEscola != null) {
+//                        MarkerOptions marcador = new MarkerOptions();
+//                        marcador.position(posicaoDaEscola);
+//                        marcador.title("Escola da Agenda APP");
+//                        googleMap.addMarker(marcador);
+//                    }
+//                }
+//
+//                new Localizador(getContext(), googleMap);
+//            }
+
+        }
+
+
+        LatLng posicaoDaEscola = new LatLng(-23.564108, -46.652409);
+        if (posicaoDaEscola != null) {
             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(posicaoDaEscola, 17);
             googleMap.moveCamera(update);
-            if(posicaoDaEscola != null){
+            if (posicaoDaEscola != null) {
                 MarkerOptions marcador = new MarkerOptions();
                 marcador.position(posicaoDaEscola);
-                marcador.title("Agenda APP");
+                marcador.title("Escola da Agenda APP");
                 googleMap.addMarker(marcador);
             }
         }
 
+        new Localizador(getContext(), googleMap);
 //        AlunoDAO alunoDAO = new AlunoDAO(getContext());
 //        for(Aluno aluno : alunoDAO.buscaAlunos()){
 //            LatLng coordenada = getAddress(aluno.getEndereco());
@@ -55,7 +89,6 @@ public class MapaFragment extends SupportMapFragment implements OnMapReadyCallba
 //        }
 
 //        alunoDAO.close();
-        new Localizador(getContext(), googleMap);
     }
 
     private LatLng getAddress(String endereco){

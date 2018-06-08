@@ -205,7 +205,7 @@ public class ListaAlunosAdapter extends RecyclerView.Adapter<ListaAlunosAdapter.
             intentSMS.setData(Uri.parse("sms:" + aluno.getTelefone()));
             itemSMS.setIntent(intentSMS);
 
-            MenuItem itemMapa = menu.add("Visualizar Mapa");
+            MenuItem itemMapa = menu.add("Mostrar endereço no GoogleMaps");
             Intent intentMapa = new Intent(Intent.ACTION_VIEW);
             intentMapa.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
             itemMapa.setIntent(intentMapa);

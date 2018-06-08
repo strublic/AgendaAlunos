@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
 
-    private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
+    private Button btnChangeEmail, btnChangePassword,
             changeEmail, changePassword, sendEmail, remove, signOut;
 
     private EditText oldEmail, newEmail, password, newPassword;
@@ -67,8 +67,6 @@ public class ProfileFragment extends Fragment {
 
         btnChangeEmail = (Button) view.findViewById(R.id.change_email_button);
         btnChangePassword = (Button) view.findViewById(R.id.change_password_button);
-        btnSendResetEmail = (Button) view.findViewById(R.id.sending_pass_reset_button);
-//        btnRemoveUser = (Button) view.findViewById(R.id.remove_user_button);
         changeEmail = (Button) view.findViewById(R.id.changeEmail);
         changePassword = (Button) view.findViewById(R.id.changePass);
         sendEmail = (Button) view.findViewById(R.id.send);
@@ -180,19 +178,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        btnSendResetEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oldEmail.setVisibility(View.VISIBLE);
-                newEmail.setVisibility(View.GONE);
-                password.setVisibility(View.GONE);
-                newPassword.setVisibility(View.GONE);
-                changeEmail.setVisibility(View.GONE);
-                changePassword.setVisibility(View.GONE);
-                sendEmail.setVisibility(View.VISIBLE);
-                remove.setVisibility(View.GONE);
-            }
-        });
 
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override

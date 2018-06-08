@@ -142,24 +142,6 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/sending_pass_reset_button"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:text="@string/send_password_reset_email"
-            android:textStyle="bold" />
-
-        <!--<Button-->
-            <!--android:id="@+id/remove_user_button"-->
-            <!--style="?android:textAppearanceSmall"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:text="@string/remove_user"-->
-            <!--android:textStyle="bold" />-->
-
-        <Button
             android:id="@+id/sign_out"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
